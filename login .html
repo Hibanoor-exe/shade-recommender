@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #93a9b5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .login-container {
+      background: #6c432a;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(42, 41, 41, 0.1);
+      width: 300px;
+    }
+    .login-container h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .login-container input {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border: 1px solid #bdb9b9;
+      border-radius: 4px;
+    }
+    .login-container button {
+      width: 100%;
+      padding: 10px;
+      background: #8290a1;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .login-container button:hover {
+      background: #9bd5e5;
+    }
+    .login-links {
+      text-align: center;
+      margin-top: 15px;
+    }
+    .login-links a {
+      color: #4d5053;
+      text-decoration: none;
+      margin: 0 10px;
+    }
+    .login-links a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <h2>Login for Glowshade Website</h2>
+ <form onsubmit="window.location.href='welcome.html'; return false;">
+  <input type="text" placeholder="Username" required>
+  <input type="password" placeholder="Password" required>
+  <button type="submit">Login</button>
+</form>
+
+    <div class="login-links">
+      <form action="welcome.html" method="post">
+
+    </div>
+  </div>
+</body>
+</html>

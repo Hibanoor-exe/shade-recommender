@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glow shade  - Pakistani Shade Recommender</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+<base target="_blank">
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="bg-animation">
+        <div class="floating-orb"></div>
+        <div class="floating-orb"></div>
+        <div class="floating-orb"></div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <div class="logo-icon">&#10022;</div>
+                <div>
+                    <div class="logo-text">Glowshade</div>
+                    <div class="logo-sub"> Beauty Lab</div>
+                </div>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#technology">Technology</a></li>
+                <li><a href="#database">Database</a></li>
+                <li><a href="#about">About</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Discover Your <span>Perfect Shade</span> with  Precision</h1>
+            <p>Upload your photo and let our advanced system analyze your unique South Asian skin tone to recommend the perfect foundation and lipstick shades available in Swabi markets.</p>
+
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <div class="stat-number">700+</div>
+                    <div class="stat-label">Products</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">98%</div>
+                    <div class="stat-label">Accuracy</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">&lt;5s</div>
+                    <div class="stat-label">Analysis</div>
+                </div>
+            </div>
+
+            <div class="cta-group">
+                <button class="btn btn-primary" data-action="scroll-to-upload">
+                    <span>&#128247;</span> Try It Now
+                </button>
+                <button class="btn btn-secondary" data-action="scroll-to-tech">
+                    <span>&#128300;</span> How It Works
+                </button>
+            </div>
+        </div>
+
+        <div class="upload-card">
+            <div class="upload-area" id="uploadArea" data-action="trigger-upload">
+                <span class="upload-icon">&#128228;</span>
+                <div class="upload-text">Drop your photo here</div>
+                <div class="upload-hint">or click to browse (JPG/PNG, max 5MB)</div>
+            </div>
+            <input type="file" id="fileInput" class="file-input" accept="image/*" >
+
+            <div class="processing-steps" id="processingSteps">
+                <div class="step" id="step1">
+                    <div class="step-circle">1</div>
+                    <div class="step-label">Face Detection</div>
+                </div>
+                <div class="step" id="step2">
+                    <div class="step-circle">2</div>
+                    <div class="step-label">Skin Extraction</div>
+                </div>
+                <div class="step" id="step3">
+                    <div class="step-circle">3</div>
+                    <div class="step-label">Tone Analysis</div>
+                </div>
+                <div class="step" id="step4">
+                    <div class="step-circle">4</div>
+                    <div class="step-label">Shade Matching</div>
+                </div>
+            </div>
+
+            <div class="loader" id="loader">
+                <div class="loader-spinner"></div>
+                <div class="loader-text" id="loaderText">Analyzing your skin tone...</div>
+            </div>
+
+            <div class="preview-section" id="previewSection">
+                <div class="image-preview-container">
+                    <img id="previewImage" class="image-preview" alt="Uploaded face">
+                    <div class="face-overlay" id="faceOverlay"></div>
+                    <canvas id="skinOverlay" class="skin-region-overlay"></canvas>
+                </div>
+                <div class="preview-actions">
+                    <button class="btn btn-primary" data-action="analyze">
+                        <span>&#10024;</span> Find My Shades
+                    </button>
+                    <button class="btn btn-secondary" data-action="reset">
+                        <span>&#128260;</span> New Photo
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Results Section -->
+    <section class="results-section" id="resultsSection">
+        <div class="demo-notice" id="demoNotice">
+            <p>👆 Upload your photo above to see your personalized matches. These are sample results.</p>
+        </div>
+        <div class="results-header">
+            <h2>Your Personalized Recommendations</h2>
+            <div class="skin-tone-display">
+                <div class="skin-tone-swatch" id="skinToneSwatch"></div>
+                <div class="skin-tone-info">
+                    <h3 id="skinToneName">Warm Golden</h3>
+                    <p id="skinToneDesc">Detected undertone with 94% confidence</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="filter-tabs">
+            <button class="filter-tab active" data-action="filter-all" data-filter="all">All Products</button>
+            <button class="filter-tab" data-action="filter-local" data-filter="local">Available in Swabi</button>
+            <button class="filter-tab" data-action="filter-online" data-filter="online">Online Only</button>
+        </div>
+
+        <div class="section-header">
+            <h3>Foundation Matches</h3>
+            <div class="section-line"></div>
+        </div>
+        <div class="products-grid" id="foundationGrid">
+                <!-- Demo cards shown before analysis -->
+                <div class="product-card demo-card" data-availability="local">
+                    <span class="product-badge badge-local">In Swabi</span>
+                    <div class="product-image">
+                        <div class="product-shade-swatch" style="background: rgb(210, 170, 130)"></div>
+                        <span class="match-percentage">95% Match</span>
+                    </div>
+                    <div class="product-details">
+                        <div class="product-brand">Medora</div>
+                        <div class="product-name">Soft Beige</div>
+                        <div style="font-size: 0.85rem; color: #696868; margin-top: 0.25rem;">Soft Beige</div>
+                        <div class="product-meta">
+                            <span class="product-price">₨450</span>
+                            <span class="product-delta good">ΔE: 4.2</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card demo-card" data-availability="online">
+                    <span class="product-badge badge-online">Online Only</span>
+                    <div class="product-image">
+                        <div class="product-shade-swatch" style="background: rgb(195, 155, 115)"></div>
+                        <span class="match-percentage">88% Match</span>
+                    </div>
+                    <div class="product-details">
+                        <div class="product-brand">Maybelline</div>
+                        <div class="product-name">Fit Me Matte</div>
+                        <div style="font-size: 0.85rem; color: #888; margin-top: 0.25rem;">220 Natural Beige</div>
+                        <div class="product-meta">
+                            <span class="product-price">₨1500</span>
+                            <span class="product-delta medium">ΔE: 12.5</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card demo-card" data-availability="local">
+                    <span class="product-badge badge-local">In Swabi</span>
+                    <div class="product-image">
+                        <div class="product-shade-swatch" style="background: rgb(175, 130, 90)"></div>
+                        <span class="match-percentage">82% Match</span>
+                    </div>
+                    <div class="product-details">
+                        <div class="product-brand">Golden Rose</div>
+                        <div class="product-name">Toffee</div>
+                        <div style="font-size: 0.85rem; color: #888; margin-top: 0.25rem;">Toffee</div>
+                        <div class="product-meta">
+                            <span class="product-price">₨650</span>
+                            <span class="product-delta medium">ΔE: 18.3</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        <div class="section-header">
+            <h3>Lipstick Matches</h3>
+            <div class="section-line"></div>
+        </div>
+        <div class="products-grid" id="lipstickGrid">
+                <!-- Demo cards shown before analysis -->
+                <div class="product-card demo-card" data-availability="local">
+                    <span class="product-badge badge-local">In Swabi</span>
+                    <div class="product-image">
+                        <div class="product-shade-swatch" style="background: rgb(200, 50, 60)"></div>
+                        <span class="match-percentage">92% Match</span>
+                    </div>
+                    <div class="product-details">
+                        <div class="product-brand">Medora</div>
+                        <div class="product-name">Ruby Red</div>
+                        <div style="font-size: 0.85rem; color: #888; margin-top: 0.25rem;">Ruby</div>
+                        <div class="product-meta">
+                            <span class="product-price">₨350</span>
+                            <span class="product-delta good">ΔE: 6.1</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card demo-card" data-availability="online">
+                    <span class="product-badge badge-online">Online Only</span>
+                    <div class="product-image">
+                        <div class="product-shade-swatch" style="background: rgb(185, 130, 110)"></div>
+                        <span class="match-percentage">85% Match</span>
+                    </div>
+                    <div class="product-details">
+                        <div class="product-brand">MAC</div>
+                        <div class="product-name">Velvet Teddy</div>
+                        <div style="font-size: 0.85rem; color: #888; margin-top: 0.25rem;">Teddy</div>
+                        <div class="product-meta">
+                            <span class="product-price">₨2800</span>
+                            <span class="product-delta medium">ΔE: 14.7</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card demo-card" data-availability="local">
+                    <span class="product-badge badge-local">In Swabi</span>
+                    <div class="product-image">
+                        <div class="product-shade-swatch" style="background: rgb(170, 110, 90)"></div>
+                        <span class="match-percentage">78% Match</span>
+                    </div>
+                    <div class="product-details">
+                        <div class="product-brand">Golden Rose</div>
+                        <div class="product-name">Brown Sugar</div>
+                        <div style="font-size: 0.85rem; color: #888; margin-top: 0.25rem;">Brown</div>
+                        <div class="product-meta">
+                            <span class="product-price">₨450</span>
+                            <span class="product-delta medium">ΔE: 22.1</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        <div class="tech-panel" id="techPanel">
+            <h3><span>&#128300;</span> Technical Analysis Details</h3>
+            <div class="tech-grid">
+                <div class="tech-item">
+                    <h4>RGB Values</h4>
+                    <p>Average skin color detected</p>
+                    <div class="color-values" id="rgbValues"></div>
+                </div>
+                <div class="tech-item">
+                    <h4>HSV Conversion</h4>
+                    <p>Hue, Saturation, Value</p>
+                    <div class="color-values" id="hsvValues"></div>
+                </div>
+                <div class="tech-item">
+                    <h4>CIELAB Color Space</h4>
+                    <p>Perceptually uniform values</p>
+                    <div class="color-values" id="labValues"></div>
+                </div>
+                <div class="tech-item">
+                    <h4>K-Means Clustering</h4>
+                    <p>Dominant cluster analysis</p>
+                    <div class="color-values" id="kmeansValues"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technology Section -->
+    <section class="tech-details" id="technology">
+        <div class="section-header">
+            <h3>Our Technology Stack</h3>
+            <div class="section-line"></div>
+        </div>
+        <div class="tech-grid">
+            <div class="tech-item">
+                <h4>HSV Color Space</h4>
+                <p>Separates chromaticity from brightness, enabling robust skin detection under varying lighting conditions common in Pakistani households.</p>
+            </div>
+            <div class="tech-item">
+                <h4>K-Means Clustering</h4>
+                <p>Identifies dominant skin tone clusters while suppressing shadow and highlight variations for accurate classification.</p>
+            </div>
+            <div class="tech-item">
+                <h4>CIELAB + Delta-E</h4>
+                <p>Perceptually uniform color space matching how human eyes perceive color differences, ensuring natural-looking recommendations.</p>
+            </div>
+            <div class="tech-item">
+                <h4>Regional Database</h4>
+                <p>Curated 700+ products including Medora, Rivaj UK, and local Swabi market brands with verified availability data.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Database Stats Section -->
+    <section class="database-stats" id="database">
+        <div class="section-header">
+            <h3>Product Database</h3>
+            <div class="section-line"></div>
+        </div>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">&#128132;</div>
+                <div class="stat-number-large">61</div>
+                <div class="stat-label-large">Foundation Shades</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">&#128139;</div>
+                <div class="stat-number-large">50</div>
+                <div class="stat-label-large">Lipstick Shades</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">&#127969;</div>
+                <div class="stat-number-large">4</div>
+                <div class="stat-label-large">Local Brands</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">&#127760;</div>
+                <div class="stat-number-large">7</div>
+                <div class="stat-label-large">International Brands</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="about">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Glow shade</h4>
+                <p>Developed by students of Women University Swabi, Department of Computer Science, under the supervision of Ma'am Nimra.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Project Team</h4>
+                <p>Hiba Noor &bull; Sidra Khan &bull; Laila Rehman<br> &bull; Laiba Nihar</p>
+            </div>
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <p>Women University Swabi<br>Khyber Pakhtunkhwa, Pakistan</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>GlowMatch-Powered Foundation & Lipstick Shade Recommender for Regional Pakistani Markets</p>
+        </div>
+    </footer>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast"></div>
+
+    <!-- Hidden Analysis Canvas -->
+    <canvas id="analysisCanvas" style="display:none;"></canvas>
+
+    <!-- Scripts -->
+    <script src="productdatabase.js"></script>
+    <script src="colorscience.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
